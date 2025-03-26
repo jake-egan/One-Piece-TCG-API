@@ -40,7 +40,8 @@
     }
     public class OnePieceTCG
     {
-        public String Name { get; set; }
+        public int Id { get; set; }
+        public required String Cardname { get; set; }
         public CardType Type { get; set; }
         public Rarity Rarity { get; set; }
         //public string Color { get; set; }
