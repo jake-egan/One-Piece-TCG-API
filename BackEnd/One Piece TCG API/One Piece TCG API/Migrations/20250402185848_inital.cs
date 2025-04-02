@@ -5,7 +5,7 @@
 namespace One_Piece_TCG_API.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class inital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,12 +14,16 @@ namespace One_Piece_TCG_API.Migrations
                 name: "Card",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Cardname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    Rarity = table.Column<int>(type: "int", nullable: false),
-                    setCode = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rarity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Power = table.Column<int>(type: "int", nullable: true),
+                    Counter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cost = table.Column<int>(type: "int", nullable: true),
+                    Effect = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Set_name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

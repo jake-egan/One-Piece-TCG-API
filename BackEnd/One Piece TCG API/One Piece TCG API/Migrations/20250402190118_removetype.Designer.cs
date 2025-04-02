@@ -11,8 +11,8 @@ using One_Piece_TCG_API.Data;
 namespace One_Piece_TCG_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250326221313_Initial")]
-    partial class Initial
+    [Migration("20250402190118_removetype")]
+    partial class removetype
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,24 +26,38 @@ namespace One_Piece_TCG_API.Migrations
 
             modelBuilder.Entity("One_Piece_TCG_API.OnePieceTCG", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Cardname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rarity")
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cost")
                         .HasColumnType("int");
 
-                    b.Property<int>("Type")
+                    b.Property<string>("Counter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Power")
                         .HasColumnType("int");
 
-                    b.Property<int>("setCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Rarity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Set_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
