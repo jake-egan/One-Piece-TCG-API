@@ -5,25 +5,25 @@
 namespace One_Piece_TCG_API.Migrations
 {
     /// <inheritdoc />
-    public partial class removetype : Migration
+    public partial class AddUserRole : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Type",
-                table: "Card");
+            migrationBuilder.AddColumn<string>(
+                name: "Role",
+                table: "Users",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Type",
-                table: "Card",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+            migrationBuilder.DropColumn(
+                name: "Role",
+                table: "Users");
         }
     }
 }

@@ -10,8 +10,8 @@ namespace One_Piece_TCG_API.Controllers
     [ApiController]
     public class OnePieceTCGController : Controller
     {
-        private readonly DataContext _context;
-        public OnePieceTCGController(DataContext context)
+        private readonly UserDbContext _context;
+        public OnePieceTCGController(UserDbContext context)
         {
            _context = context;
         }
@@ -41,18 +41,18 @@ namespace One_Piece_TCG_API.Controllers
             for (int i = 0; i < 7; i++)
             {
                 int Common_number = rnd.Next(Common_count);
-                var Common = cards.ElementAt(Common_number);
+                var Common = Common_list.ElementAt(Common_number);
                 Pack.Add(Common);
             }
 
 
             //Uncommon Card Section
             var Uncommon_list = cards.Where(p => p.Rarity == "Uncommon");
-            var Uncommon_count = Common_list.Count();
+            var Uncommon_count = Uncommon_list.Count();
             for (int i = 0; i < 2; i++)
             {
                 int Uncommon_number = rnd.Next(Uncommon_count);
-                var Uncommon = cards.ElementAt(Uncommon_number);
+                var Uncommon = Uncommon_list.ElementAt(Uncommon_number);
                 Pack.Add(Uncommon);
             }
 
