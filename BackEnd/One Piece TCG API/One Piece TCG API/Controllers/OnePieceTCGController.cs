@@ -23,7 +23,7 @@ namespace One_Piece_TCG_API.Controllers
 
             return Ok(cards);
         }
-
+         
         [HttpGet("openpack")]
         public async Task<ActionResult<List<OnePieceTCG>>> OpenPack()
         {
