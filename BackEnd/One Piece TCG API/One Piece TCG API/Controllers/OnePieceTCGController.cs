@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 using One_Piece_TCG_API.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -24,12 +25,17 @@ namespace One_Piece_TCG_API.Controllers
             return Ok(cards);
         }
          
-        [HttpGet("openpack")]
-        public async Task<ActionResult<List<OnePieceTCG>>> OpenPack()
+        [HttpGet("openpack/{set_name}")]
+        public async Task<ActionResult<List<OnePieceTCG>>> OpenPack(string set_name)
         {
             //randoms needed to randomly get a card
             Random rnd = new Random();
-            var cards = await _context.Card.ToListAsync();
+            var cards = await _context.Card.Where(x => x.Set_name == set_name).ToListAsync();
+            if (cards == null) 
+            {
+                //if cant find pack from name then it will default to Romance-Dawn
+                cards =  await _context.Card.Where(x => x.Set_name == "Romance-Dawn").ToListAsync();
+            }
 
             //Each Pack has 12 cards
             // 7 commons,2 uncommons, 1 leader, 2 rares - but different odds for superrare and secret rare
