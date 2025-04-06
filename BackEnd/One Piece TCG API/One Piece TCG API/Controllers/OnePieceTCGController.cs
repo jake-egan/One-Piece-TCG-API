@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 using One_Piece_TCG_API.Data;
@@ -24,7 +25,8 @@ namespace One_Piece_TCG_API.Controllers
 
             return Ok(cards);
         }
-         
+
+        [Authorize]
         [HttpGet("openpack/{set_name}")]
         public async Task<ActionResult<List<OnePieceTCG>>> OpenPack(string set_name)
         {

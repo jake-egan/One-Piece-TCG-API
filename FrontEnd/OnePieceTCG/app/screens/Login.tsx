@@ -24,7 +24,7 @@ const Login = () => {
   }
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/Images/ONEPIECELOGO.png')}/>
+      <Image source={require('../../assets/images/ONEPIECELOGO.png')}/>
       <View style={styles.form}>
         <TextInput style={styles.input} placeholder='Username' onChangeText={(text: string) => setUsername(text)}/>
         <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} onChangeText={(text: string) => setPassword(text)}/>

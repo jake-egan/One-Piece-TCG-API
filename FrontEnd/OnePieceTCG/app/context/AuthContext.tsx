@@ -10,7 +10,7 @@ onLogin?: (username: string,password: string) => Promise<any>;
 onLogout?: () => Promise<any>;
 }
 
-const TOKEN_KEY = 'my-jwt';
+const TOKEN_KEY = 'accessToken';
 export const API_URL = "http://192.168.1.57:5000/api/Auth";
 const AuthContext = createContext<AuthProps>({});
 
@@ -51,26 +51,25 @@ export const AuthProvider = ({children}: any) => {
         }
     };
 
-    const login = async(username:string, password:string) => {
+    const login = async (username: string, password: string) => {
         try {
-
-           const result = await axios.post(`${API_URL}/login`,{username,password});
-
-           setAuthState({
-            token: result.data.accessToken,
-            authenticated: true
-           })
-           axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`
-
-           await SecureStore.setItemAsync(TOKEN_KEY, result.data.token)
-
-           return result;
-
-
-        }catch (e) {
-            return {error: true, msg: (e as any).response.data.msg};
+            const result = await axios.post(`${API_URL}/login`, { username, password });
+    
+            setAuthState({
+                token: result.data.accessToken,
+                authenticated: true,
+            });
+    
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
+    
+            await SecureStore.setItemAsync(TOKEN_KEY, result.data.accessToken);
+    
+            return result;
+        } catch (e) {
+            return { error: true, msg: (e as any).response.data.msg };
         }
     };
+    
 
 
     const logout = async () => {
