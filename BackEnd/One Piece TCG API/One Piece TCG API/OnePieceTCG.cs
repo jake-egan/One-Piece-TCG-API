@@ -1,4 +1,6 @@
-﻿namespace One_Piece_TCG_API
+﻿using One_Piece_TCG_API.Entities;
+
+namespace One_Piece_TCG_API
 {
     public class OnePieceTCG
     {
@@ -11,5 +13,16 @@
         public int? Cost { get; set; }
         public string? Effect { get; set; }
         public required string Set_name { get; set; }
+    }
+
+    public class CollectedCards
+    {
+        public int Id { get; set; } 
+
+        public required string CardId { get; set; } 
+        public OnePieceTCG Card { get; set; } = null!;
+
+        public Guid User_Id { get; set; } 
+        public User User { get; set; } = null!;
     }
 }

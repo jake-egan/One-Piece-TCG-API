@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 using One_Piece_TCG_API.Data;
+using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace One_Piece_TCG_API.Controllers
@@ -26,10 +27,50 @@ namespace One_Piece_TCG_API.Controllers
             return Ok(cards);
         }
 
+
+        //get all cards that I have discovered/unpacked
+        [Authorize]
+        [HttpGet("discovered/{set_name}")]
+        public async Task<ActionResult<List<CollectedCards>>> Discovered(string set_name) 
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized("No ID found in token");
+            }
+
+            Guid userId = Guid.Parse(userIdClaim.Value);
+            var discovered_cards = await _context.CollectedCards
+                .Where(c => c.User_Id == userId && c.Card.Set_name == set_name)
+                .Include(c => c.Card)
+                .ToListAsync();
+
+
+            if (discovered_cards == null) {
+                return BadRequest(discovered_cards);
+            }
+
+            return Ok(discovered_cards);
+            
+
+        }
+
+
+        //Open a pack of cards.
+        // This generates you a pack based on change then adds them cards to your discovered list.
         [Authorize]
         [HttpGet("openpack/{set_name}")]
         public async Task<ActionResult<List<OnePieceTCG>>> OpenPack(string set_name)
         {
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized("No ID found in token");
+            }
+
+            Guid userId = Guid.Parse(userIdClaim.Value);
+
             //randoms needed to randomly get a card
             Random rnd = new Random();
             var cards = await _context.Card.Where(x => x.Set_name == set_name).ToListAsync();
@@ -114,7 +155,25 @@ namespace One_Piece_TCG_API.Controllers
                 }
             }
 
-            //SecretRare Card Section
+            //adding cards to collected cards
+            foreach (var card in Pack) 
+            {
+                var discovered = await _context.CollectedCards
+                .Where(c => c.CardId == card.Id && c.User_Id == userId)
+                .FirstOrDefaultAsync();
+
+                if (discovered == null)
+                {
+                    _context.CollectedCards.Add(new CollectedCards
+                    {
+                        CardId = card.Id,
+                        User_Id = userId
+                    });
+                    await _context.SaveChangesAsync();
+                }
+                
+            }
+            
 
             return Ok(Pack);
         }

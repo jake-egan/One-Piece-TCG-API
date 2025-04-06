@@ -22,6 +22,30 @@ namespace One_Piece_TCG_API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("One_Piece_TCG_API.CollectedCards", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CardId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("CollectedCards");
+                });
+
             modelBuilder.Entity("One_Piece_TCG_API.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -87,6 +111,25 @@ namespace One_Piece_TCG_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Card");
+                });
+
+            modelBuilder.Entity("One_Piece_TCG_API.CollectedCards", b =>
+                {
+                    b.HasOne("One_Piece_TCG_API.OnePieceTCG", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("One_Piece_TCG_API.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
