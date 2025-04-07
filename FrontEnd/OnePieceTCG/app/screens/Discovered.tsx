@@ -54,66 +54,63 @@ const Discovered = () => {
     return (
         <View style={styles.cards}>
             {displayImage === 1 ? (
-                <>
-                    <FlatGrid
-                        data={packData}
-                        renderItem={({ item }) =>
-                            discovered(item.id) ? (
-                                <Pressable
-                                onPress={() => {
-                                    setDisplayImage(0);
-                                    updateCardview(item);
-                                }}
-                                    style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
-                                    <Image
-                                        key={item.id}
-                                        style={styles.image}
-                                        source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}
-                                        resizeMode="contain"
+                    <>
+                        <FlatGrid
+                            data={packData}
+                            renderItem={({ item }) =>
+                                discovered(item.id) ? (
+                                            <Pressable
+                                                onPress={() => {
+                                                setDisplayImage(0);
+                                                updateCardview(item);}}
+                                                
+                                                style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
+                                                <Image
+                                                    key={item.id}
+                                                    style={styles.image}
+                                                    source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}                                                    
+                                                
+                                                resizeMode="contain"/>
+                                            </Pressable>
+                                            ) : (
+                                                <>
+                                                <Image
+                                                    key={item.id}
+                                                    style={[styles.image, { opacity: 0.2 }]}
+                                                    source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}
+                                                    resizeMode="contain"
+                                                />
+                                                </>
+                                            )
+                                        }
                                     />
-                                </Pressable>
-                            ) : (
-                                <>
-                                <Image
-                                    key={item.id}
-                                    style={[styles.image, { opacity: 0.2 }]}
-                                    source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}
-                                    resizeMode="contain"
-                                />
+                                    <DropDownPicker
+                                        style={styles.dropdownContainer}
+                                        open={open}
+                                        value={value}
+                                        items={items}
+                                        setOpen={setOpen}
+                                        setValue={setValue}
+                                        setItems={setItems}
+                                        theme="LIGHT"
+                                        multiple={false}
+                                        mode="BADGE"
+                                        badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
+                                    />
                                 </>
-                            )
-                        }
-                    />
-                    <DropDownPicker
-                        style={styles.dropdownContainer}
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                        theme="LIGHT"
-                        multiple={false}
-                        mode="BADGE"
-                        badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
-                    />
-                </>
             ) : (
                 <>
-                    <Image
-                        key={cardView.id}
-                            style={styles.image}
-                            source={{ uri: `http://192.168.1.57:5000/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
-                            resizeMode="contain"
-                                />
-                    <Button 
-                                        title="Open Another"
-                                        onPress={() => {
-                                            setDisplayImage(1);
-                                        }}
+                                    <Image
+                                        key={cardView.id}
+                                        style={styles.image}
+                                        source={{ uri: `http://192.168.1.57:5000/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
+                                      resizeMode="contain"/>
+                                        <Button 
+                                        title="Back"
+                                         onPress={() => {
+                                        setDisplayImage(1);}}
                                         containerStyle={styles.buttonContainer}
-                                        buttonStyle={styles.button}
-                                />
+                                        buttonStyle={styles.button}/>
                 </>
             )}
         </View>
