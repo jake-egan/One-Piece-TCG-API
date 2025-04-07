@@ -102,7 +102,7 @@ const Home = () => {
 const styles = StyleSheet.create({
     fullContainer: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#fffff',
     },
     container: {
       flex: 1,
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
     },
     carouselItem: {
-      backgroundColor: 'floralwhite',
       borderRadius: 10,
       height: 450,
       marginHorizontal: 10,

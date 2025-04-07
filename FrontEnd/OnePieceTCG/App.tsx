@@ -1,36 +1,74 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { Button, View } from 'react-native';
 
 import { AuthProvider, useAuth } from './app/context/AuthContext';
-
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './app/screens/Home';
 import Login from './app/screens/Login';
-import { Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Discovered from './app/screens/Discovered';
 
-const Stack = createNativeStackNavigator();
+const MyTabs = createBottomTabNavigator();
 
 export default function App() {
   return (
     <AuthProvider>
-      <Layout></Layout>
+      <NavigationContainer>
+        <Layout />
+      </NavigationContainer>
     </AuthProvider>
   );
 }
 
-export const Layout = () =>{
-  const { authState, onLogout} = useAuth();
+export const Layout = () => {
+  const { authState, onLogout } = useAuth();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {authState?.authenticated ? (
-          <Stack.Screen name="Home" component={Home} options={
-            {headerRight: () => <Button onPress={onLogout} title="Sign Out"></Button>
-          }}></Stack.Screen>
-        ): (
-          <Stack.Screen name='Login' component={Login}></Stack.Screen>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
+    <MyTabs.Navigator>
+      {authState?.authenticated ? (
+        <>
+          <MyTabs.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerShown: false,
+              tabBarLabel: 'Home',
+            }}
+          />
+          <MyTabs.Screen
+            name="Discovered"
+            component={Discovered}
+            options={{
+              headerShown: false,
+              tabBarLabel: 'Discovered',
+            }}
+          />
+          <MyTabs.Screen
+            name="Logout"
+            component={() => (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Button onPress={onLogout} title="Sign Out" />
+              </View>
+            )}
+            options={{
+              headerShown: false,
+              tabBarButton: () => (
+                <Button title="Logout" onPress={onLogout} />
+              ),
+            }}
+          />
+        </>
+      ) : (
+        <MyTabs.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'Login',
+            tabBarStyle: { display: 'none' }
+          }}
+        />
+      )}
+    </MyTabs.Navigator>
+  );
+};

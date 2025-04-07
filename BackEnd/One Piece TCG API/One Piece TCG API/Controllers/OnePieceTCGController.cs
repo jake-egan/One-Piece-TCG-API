@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace One_Piece_TCG_API.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class OnePieceTCGController : Controller
@@ -16,19 +16,25 @@ namespace One_Piece_TCG_API.Controllers
         private readonly UserDbContext _context;
         public OnePieceTCGController(UserDbContext context)
         {
-           _context = context;
+            _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<OnePieceTCG>>> GetAllCards() {
+        
+        //used for getting all cards based on a set
+        [Authorize]
+        [HttpGet("all_cards/{set_name}")]
+        public async Task<ActionResult<List<OnePieceTCG>>> GetAllCards(string set_name)
+        {
 
-            var cards = await _context.Card.ToListAsync();
-
+            var cards = await _context.Card.Where(c => c.Set_name == set_name).ToListAsync();
+            if (cards == null)
+            {
+                return BadRequest(cards);
+            }
             return Ok(cards);
         }
 
-
-        //get all cards that I have discovered/unpacked
+        //get all cards that I have discovered/unpacked - based on setname
         [Authorize]
         [HttpGet("discovered/{set_name}")]
         public async Task<ActionResult<List<CollectedCards>>> Discovered(string set_name) 
