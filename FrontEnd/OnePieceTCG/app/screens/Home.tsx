@@ -6,17 +6,18 @@ import { Card } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import Carousel from 'react-native-reanimated-carousel';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import {useTranslation} from 'react-i18next';
 const { width, height } = Dimensions.get('window');
 
 const Home = () => {
+  const { t } = useTranslation();
     const emptyData = [];
   const [packData, setPackData] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('Romance-Dawn');
   const [items, setItems] = useState([
-    {label: 'Romance Dawn OP01', value: 'Romance-Dawn'},
-    {label: 'Paramount War OP02', value: 'Paramount-War'},
+    {label: t('packs.op01name'), value: 'Romance-Dawn'},
+    {label: t('packs.op02name'), value: 'Paramount-War'},
   ]);
 
 
@@ -25,7 +26,7 @@ const Home = () => {
       const data = await openPack(value); 
       setPackData(data);
     } catch (error) {
-      Alert.alert('Failed to open pack');
+      Alert.alert(t('packs.failed'));
     }
   };
 
@@ -60,7 +61,7 @@ const Home = () => {
                   renderItem={renderItem}
                 />
                 <Button 
-                  title="Open Another"
+                  title={t('packs.openAnother')}
                   onPress={reopen} 
                   containerStyle={styles.buttonContainer}
                   buttonStyle={styles.button}
@@ -78,7 +79,6 @@ const Home = () => {
                   theme="LIGHT"
                   multiple={false}
                   mode="BADGE"
-                  badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
                 />
                 <Pressable
                   onPress={handlePress}

@@ -7,9 +7,10 @@ import { discovered_cards } from '../../components/discoveredcards';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button } from '@rneui/base';
 import { delete_card } from '../../components/deletecard';
-
+import {useTranslation} from 'react-i18next';
 
 const Discovered = () => {
+    const { t } = useTranslation();
     const [displayImage, setDisplayImage] = useState(1); 
     const [cardView, setCardView] = useState([])
     const [open, setOpen] = useState(false);
@@ -17,8 +18,8 @@ const Discovered = () => {
     const [discoveredpackData, setDiscoveredpackData] = useState([]);
     const [value, setValue] = useState('Romance-Dawn');
     const [items, setItems] = useState([
-        { label: 'Romance Dawn OP01', value: 'Romance-Dawn' },
-        { label: 'Paramount War OP02', value: 'Paramount-War' },
+        { label: t('packs.op01name'), value: 'Romance-Dawn' },
+        { label: t('packs.op02name'), value: 'Paramount-War' },
     ]);
 
     //all for cardview to be assigned
@@ -34,7 +35,7 @@ const Discovered = () => {
             const discoveredData = await discovered_cards(value);
             setDiscoveredpackData(discoveredData);
         } catch (error) {
-            Alert.alert('Failed to open pack');
+            Alert.alert(t('discovered.failureDiscover'));
         }
     };
 
@@ -44,7 +45,7 @@ const Discovered = () => {
             await delete_card(cardId);
             setDisplayImage(1)
         } catch (error) {
-            Alert.alert('Failed to delete card');
+            Alert.alert(t('discovered.failureDelete'));
         }
     };
 
@@ -109,7 +110,6 @@ const Discovered = () => {
                                         theme="LIGHT"
                                         multiple={false}
                                         mode="BADGE"
-                                        badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}
                                     />
                                 </>
             ) : (
@@ -120,26 +120,26 @@ const Discovered = () => {
                                         source={{ uri: `http://192.168.1.57:5000/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
                                       resizeMode="contain"/>
                                         <Button 
-                                        title="Back"
+                                        title={t('discovered.back')}
                                          onPress={() => {
                                         setDisplayImage(1);}}
                                         containerStyle={styles.buttonContainer}
                                         buttonStyle={styles.button}/>
                                         <Button 
-                                        title="Delete Discovery"
+                                        title={t('discovered.deleteDiscovery')}
                                          onPress={() => {
                                         
                                        
                                         //allcards called to the cards are updated
-                                        Alert.alert('Confirmation', 'Do you want to proceed?', [
+                                        Alert.alert(t('discovered.confirm'), t('discovered.proceed'), [
                                             {
                                               style: 'destructive',
-                                              text: 'Delete',
+                                              text: t('discovered.delete'),
                                               onPress: () => { deletecard(cardView.id),allcards();},
                                             },
                                             {
                                               style: 'cancel',
-                                              text: 'Cancel',
+                                              text: t('discovered.cancel'),
                                               onPress: () => {},
                                             },
                                           ])

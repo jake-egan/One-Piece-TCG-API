@@ -8,6 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Discovered from './app/screens/Discovered';
 import Settings from './app/screens/Settings';
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import {useTranslation} from 'react-i18next';
+
 
 const MyTabs = createBottomTabNavigator();
 
@@ -23,7 +25,7 @@ export default function App() {
 
 export const Layout = () => {
   const { authState, onLogout } = useAuth();
-
+  const { t } = useTranslation();
   return (
     <MyTabs.Navigator>
       {authState?.authenticated ? (
@@ -33,7 +35,7 @@ export const Layout = () => {
             component={Home}
             options={{
               headerShown: false,
-              tabBarLabel: 'Open Packs',
+              tabBarLabel: t('tabs.home'),
               tabBarIcon: ({ color, size }) => (
                 <Icon name="home" size={size} color={color} /> 
               ),
@@ -44,7 +46,7 @@ export const Layout = () => {
             component={Discovered}
             options={{
               headerShown: false,
-              tabBarLabel: 'Discovered',
+              tabBarLabel: t('tabs.discovered'),
               tabBarIcon: ({ color, size }) => (
                 <Icon name="documents" size={size} color={color} /> 
               ),
@@ -55,7 +57,7 @@ export const Layout = () => {
             component={Settings}
             options={{
               headerShown: false,
-              tabBarLabel: 'Settings',
+              tabBarLabel: t('tabs.settings'),
               tabBarIcon: ({ color, size }) => (
                 <Icon name="settings" size={size} color={color} /> 
               ),
@@ -68,7 +70,7 @@ export const Layout = () => {
           component={Login}
           options={{
             headerShown: false,
-            tabBarLabel: 'Login',
+            tabBarLabel: t('tabs.login'),
             tabBarStyle: { display: 'none' },
             tabBarIcon: ({ color, size }) => (
               <Icon name="log-in" size={size} color={color} />
