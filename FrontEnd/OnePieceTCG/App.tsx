@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Button, View } from 'react-native';
-
 import { AuthProvider, useAuth } from './app/context/AuthContext';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './app/screens/Home';
 import Login from './app/screens/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import Discovered from './app/screens/Discovered';
+import Settings from './app/screens/Settings';
+import Icon from 'react-native-vector-icons/Ionicons'; 
 
 const MyTabs = createBottomTabNavigator();
 
@@ -32,7 +33,10 @@ export const Layout = () => {
             component={Home}
             options={{
               headerShown: false,
-              tabBarLabel: 'Home',
+              tabBarLabel: 'Open Packs',
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="home" size={size} color={color} /> 
+              ),
             }}
           />
           <MyTabs.Screen
@@ -41,19 +45,19 @@ export const Layout = () => {
             options={{
               headerShown: false,
               tabBarLabel: 'Discovered',
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="documents" size={size} color={color} /> 
+              ),
             }}
           />
           <MyTabs.Screen
-            name="Logout"
-            component={() => (
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Button onPress={onLogout} title="Sign Out" />
-              </View>
-            )}
+            name="Settings"
+            component={Settings}
             options={{
               headerShown: false,
-              tabBarButton: () => (
-                <Button title="Logout" onPress={onLogout} />
+              tabBarLabel: 'Settings',
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="settings" size={size} color={color} /> 
               ),
             }}
           />
@@ -65,7 +69,10 @@ export const Layout = () => {
           options={{
             headerShown: false,
             tabBarLabel: 'Login',
-            tabBarStyle: { display: 'none' }
+            tabBarStyle: { display: 'none' },
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="log-in" size={size} color={color} />
+            ),
           }}
         />
       )}

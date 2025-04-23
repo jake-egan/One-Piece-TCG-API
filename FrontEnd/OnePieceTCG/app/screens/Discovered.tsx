@@ -6,6 +6,8 @@ import { all_cards } from '../../components/allcards';
 import { discovered_cards } from '../../components/discoveredcards';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button } from '@rneui/base';
+import { delete_card } from '../../components/deletecard';
+
 
 const Discovered = () => {
     const [displayImage, setDisplayImage] = useState(1); 
@@ -19,12 +21,12 @@ const Discovered = () => {
         { label: 'Paramount War OP02', value: 'Paramount-War' },
     ]);
 
-
+    //all for cardview to be assigned
     const updateCardview = (item) => {
         setCardView(item)
     }
 
-
+    //gets all the cards and discovered cards
     const allcards = async () => {
         try {
             const data = await all_cards(value);
@@ -33,6 +35,16 @@ const Discovered = () => {
             setDiscoveredpackData(discoveredData);
         } catch (error) {
             Alert.alert('Failed to open pack');
+        }
+    };
+
+    //calls delete card
+    const deletecard = async (cardId) => {
+        try {
+            await delete_card(cardId);
+            setDisplayImage(1)
+        } catch (error) {
+            Alert.alert('Failed to delete card');
         }
     };
 
@@ -58,6 +70,8 @@ const Discovered = () => {
                         <FlatGrid
                             data={packData}
                             renderItem={({ item }) =>
+                                //if the the response from discovered is true then Items will be full color
+                                // if not then it will be 0.2 opacity to show you have gotten it
                                 discovered(item.id) ? (
                                             <Pressable
                                                 onPress={() => {
@@ -111,6 +125,29 @@ const Discovered = () => {
                                         setDisplayImage(1);}}
                                         containerStyle={styles.buttonContainer}
                                         buttonStyle={styles.button}/>
+                                        <Button 
+                                        title="Delete Discovery"
+                                         onPress={() => {
+                                        
+                                       
+                                        //allcards called to the cards are updated
+                                        Alert.alert('Confirmation', 'Do you want to proceed?', [
+                                            {
+                                              style: 'destructive',
+                                              text: 'Delete',
+                                              onPress: () => { deletecard(cardView.id),allcards();},
+                                            },
+                                            {
+                                              style: 'cancel',
+                                              text: 'Cancel',
+                                              onPress: () => {},
+                                            },
+                                          ])
+                                        }}
+                                        containerStyle={styles.buttonContainer}
+                                        buttonStyle={[styles.button, { backgroundColor: 'red' }]} 
+                                        />
+                                        
                 </>
             )}
         </View>
@@ -123,28 +160,31 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginTop: 20,
         width: '60%',
-      },
-      button: {
+        alignSelf: 'center', 
+    },
+    button: {
         backgroundColor: '#007bff',
         borderRadius: 8,
         paddingVertical: 12,
         paddingHorizontal: 20,
-      },
+    },
     cards: {
         paddingTop: 25,
         flex: 1,
-        marginHorizontal: "auto",
+        justifyContent: 'center', 
+        alignItems: 'center', 
         width: '100%',
     },
     dropdownContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        width: '100%', 
         paddingTop: 10,
     },
     image: {
         width: '100%',
         height: undefined,
         aspectRatio: 1,
+        marginBottom: 20, 
     },
 });

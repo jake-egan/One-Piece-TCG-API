@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet,Image,Button,TextInput } from 'react-native'
+import { View, Text, StyleSheet,Image,Button,TextInput , Dimensions} from 'react-native'
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext';
-
+const screenWidth = Dimensions.get('window').width;
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password,setPassword] = useState('');
@@ -24,7 +24,8 @@ const Login = () => {
   }
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/images/ONEPIECELOGO.png')}/>
+      <Image source={require('../../assets/images/Packs/OnePieceLogo.png')}
+      style={{ width: "100%", height: screenWidth * 0.6 }}/>
       <View style={styles.form}>
         <TextInput style={styles.input} placeholder='Username' onChangeText={(text: string) => setUsername(text)}/>
         <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} onChangeText={(text: string) => setPassword(text)}/>

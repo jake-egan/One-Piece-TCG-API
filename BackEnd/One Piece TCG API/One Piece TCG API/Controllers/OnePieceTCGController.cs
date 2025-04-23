@@ -34,6 +34,28 @@ namespace One_Piece_TCG_API.Controllers
             return Ok(cards);
         }
 
+        //Delete a card from your collected cards
+        [Authorize]
+        [HttpDelete("delete/{card_id}")]
+        public async Task<ActionResult<List<CollectedCards>>> DeleteCard(string card_id) 
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized("No ID found in token");
+            }
+            Guid userId = Guid.Parse(userIdClaim.Value);
+
+            var toDelete = await _context.CollectedCards.Where(c => c.User_Id == userId && c.CardId == card_id).ToListAsync();
+            if (toDelete == null) {
+                return NotFound("Card not found");
+            }
+            _context.CollectedCards.RemoveRange(toDelete);
+
+            await _context.SaveChangesAsync();
+            return Ok("Deleted card successfully");
+        }
+
         //get all cards that I have discovered/unpacked - based on setname
         [Authorize]
         [HttpGet("discovered/{set_name}")]
