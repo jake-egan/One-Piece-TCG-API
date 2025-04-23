@@ -35,7 +35,7 @@ const Home = () => {
       <Card key={item}>
         <Card.Image 
           style={styles.image}
-          source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}
+          source={{ uri: `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/images/packs/${item.set_name}/${item.id}.PNG` }}
         />
       </Card>
     </View>

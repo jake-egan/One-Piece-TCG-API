@@ -68,36 +68,34 @@ const Discovered = () => {
         <View style={styles.cards}>
             {displayImage === 1 ? (
                     <>
-                        <FlatGrid
-                            data={packData}
-                            renderItem={({ item }) =>
-                                //if the the response from discovered is true then Items will be full color
-                                // if not then it will be 0.2 opacity to show you have gotten it
-                                discovered(item.id) ? (
-                                            <Pressable
-                                                onPress={() => {
-                                                setDisplayImage(0);
-                                                updateCardview(item);}}
-                                                
-                                                style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
-                                                <Image
-                                                    key={item.id}
-                                                    style={styles.image}
-                                                    source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}                                                    
-                                                
-                                                resizeMode="contain"/>
-                                            </Pressable>
-                                            ) : (
-                                                <>
-                                                <Image
-                                                    key={item.id}
-                                                    style={[styles.image, { opacity: 0.2 }]}
-                                                    source={{ uri: `http://192.168.1.57:5000/images/packs/${item.set_name}/${item.id}.PNG` }}
-                                                    resizeMode="contain"
-                                                />
-                                                </>
-                                            )
-                                        }
+                                    <FlatGrid
+                                        data={packData}
+                                        renderItem={({ item }) => {
+                                            const isDiscovered = discovered(item.id);
+                                            const imageUri = `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/images/packs/${item.set_name}/${item.id}.PNG`;
+
+                                            return (
+                                                <Pressable
+                                                    onPress={() => {
+                                                        if (isDiscovered) {
+                                                            setDisplayImage(0);
+                                                            updateCardview(item);
+                                                        }
+                                                    }}
+                                                    disabled={!isDiscovered}
+                                                    style={({ pressed }) => [
+                                                        { opacity: isDiscovered ? (pressed ? 0.5 : 1) : 0.2 }
+                                                    ]}
+                                                >
+                                                    <Image
+                                                        key={item.id}
+                                                        style={styles.image}
+                                                        source={{ uri: imageUri }}
+                                                        resizeMode="contain"
+                                                    />
+                                                </Pressable>
+                                            );
+                                        }}
                                     />
                                     <DropDownPicker
                                         style={styles.dropdownContainer}
@@ -117,7 +115,7 @@ const Discovered = () => {
                                     <Image
                                         key={cardView.id}
                                         style={styles.image}
-                                        source={{ uri: `http://192.168.1.57:5000/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
+                                        source={{ uri: `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
                                       resizeMode="contain"/>
                                         <Button 
                                         title={t('discovered.back')}

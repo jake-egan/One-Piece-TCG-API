@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = (card_id) => `http://192.168.1.57:5000/api/OnePieceTCG/delete/${card_id}`;
+const API_URL = (card_id) => `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/api/OnePieceTCG/delete/${card_id}`;
 
 export const delete_card = async (card_id) => {
   try {

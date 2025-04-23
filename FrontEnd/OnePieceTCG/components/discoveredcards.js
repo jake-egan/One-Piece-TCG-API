@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = (setname) => `http://192.168.1.57:5000/api/OnePieceTCG/discovered/${setname}`;
+const API_URL = (setname) => `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/api/OnePieceTCG/discovered/${setname}`;
 
 export const discovered_cards = async (setname) => {
   try {

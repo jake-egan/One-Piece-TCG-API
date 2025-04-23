@@ -11,7 +11,7 @@ onLogout?: () => Promise<any>;
 }
 
 const TOKEN_KEY = 'accessToken';
-export const API_URL = "http://192.168.1.57:5000/api/Auth";
+export const API_URL = "https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/api/Auth";
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
