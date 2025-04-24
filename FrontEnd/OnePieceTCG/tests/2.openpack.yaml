@@ -1,0 +1,54 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: "Home"
+- tapOn:
+    point: "50%,49%"
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500
+- swipe:
+    start: "81%,40%"
+    end: "15%,40%"
+    duration: 500                        
+- tapOn: "Open Another"

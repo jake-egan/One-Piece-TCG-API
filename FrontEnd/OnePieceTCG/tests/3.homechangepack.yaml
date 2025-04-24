@@ -1,0 +1,6 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: "Home"
+- tapOn: "Romance Dawn OP01"
+- tapOn: "Paramount War OP02"
+- assertVisible: "Paramount War OP02"

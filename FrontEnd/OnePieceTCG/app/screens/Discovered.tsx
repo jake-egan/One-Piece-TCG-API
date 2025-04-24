@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Pressable, View, Image } from 'react-native';
+import { Alert, StyleSheet, Pressable, View, Image,Text } from 'react-native';
 import React, { useEffect, useState, useCallback } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { FlatGrid } from 'react-native-super-grid';
@@ -117,6 +117,7 @@ const Discovered = () => {
                                         style={styles.image}
                                         source={{ uri: `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
                                       resizeMode="contain"/>
+                                        <Text>Card Rarity : {cardView.rarity}</Text>
                                         <Button 
                                         title={t('discovered.back')}
                                          onPress={() => {

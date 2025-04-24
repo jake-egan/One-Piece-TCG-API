@@ -1,0 +1,8 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: ", Discovered"
+- tapOn:
+    point: "50%,75%"
+- tapOn: "Delete Discovery"
+- tapOn: "DELETE"
+- assertVisible: "Romance Dawn OP01"

@@ -1,0 +1,5 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: ", Settings"
+- tapOn: "SIGN OUT"
+- assertVisible: "SIGN IN"

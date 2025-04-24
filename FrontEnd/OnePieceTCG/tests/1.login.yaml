@@ -1,0 +1,8 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- launchApp
+- tapOn: 'Username'
+- inputText: 'peter'
+- tapOn: 'Password'
+- inputText: 'parker'
+- tapOn: 'SIGN IN'

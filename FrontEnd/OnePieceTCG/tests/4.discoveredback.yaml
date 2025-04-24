@@ -1,0 +1,7 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: ", Discovered"
+- tapOn:
+    point: "50%,44%"
+- tapOn: "Back"
+- assertVisible: "Romance Dawn OP01"

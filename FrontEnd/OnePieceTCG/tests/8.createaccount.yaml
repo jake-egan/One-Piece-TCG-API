@@ -1,0 +1,8 @@
+appId: com.n0rmel.OnePieceTCG
+---
+- tapOn: 'Username'
+- inputText: 'peter5432111'
+- tapOn: 'Password'
+- inputText: 'parker5432111'
+- tapOn: 'CREATE ACCOUNT'
+- assertVisible: "Home"
