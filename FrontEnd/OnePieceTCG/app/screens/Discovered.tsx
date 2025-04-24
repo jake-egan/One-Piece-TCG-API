@@ -117,7 +117,7 @@ const Discovered = () => {
                                         style={styles.image}
                                         source={{ uri: `https://onepieceapp-a9due3h2fgfgcdfy.uksouth-01.azurewebsites.net/images/packs/${cardView.set_name}/${cardView.id}.PNG` }}
                                       resizeMode="contain"/>
-                                        <Text>Card Rarity : {cardView.rarity}</Text>
+                                        <Text>{t('discovered.cardrarity')} {cardView.rarity}</Text>
                                         <Button 
                                         title={t('discovered.back')}
                                          onPress={() => {

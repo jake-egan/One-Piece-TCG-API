@@ -38,7 +38,9 @@ const resources = {
         confirm:"confirmation",
         proceed:"Do you want to proceed?",
         failureDelete:"Failed to delete card",
-        failureDiscover:"Failed Discovered cards"
+        failureDiscover:"Failed Discovered cards",
+        cardrarity:"Card Rarity :"
+        
         
       }
     },
@@ -76,7 +78,8 @@ const resources = {
         confirm: "確認",
         proceed: "続行しますか？",
         failureDelete: "カードの削除に失敗しました。",
-        failureDiscover: "発見されたカードの読み込みに失敗しました。"
+        failureDiscover: "発見されたカードの読み込みに失敗しました。",
+        cardrarity:"カードのレアリティ :"
       }
     }
   }
