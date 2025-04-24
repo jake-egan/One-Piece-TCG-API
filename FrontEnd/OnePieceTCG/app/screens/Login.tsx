@@ -26,7 +26,7 @@ const Login = () => {
   }
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/images/Packs/OnePieceLogo.png')}
+      <Image source={require('../../assets/Images/Packs/OnePieceLogo.png')}
       style={{ width: "100%", height: screenWidth * 0.6 }}/>
       <View style={styles.form}>
         <TextInput style={styles.input} placeholder={t('login.username')} onChangeText={(text: string) => setUsername(text)}/>

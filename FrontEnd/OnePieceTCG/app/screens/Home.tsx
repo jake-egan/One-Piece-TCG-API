@@ -87,8 +87,8 @@ const Home = () => {
                   <Image 
                     style={styles.Packaging}
                     source={value !== "Romance-Dawn" 
-                      ? require('../../assets/images/Packs/OP-02.png') 
-                      : require('../../assets/images/Packs/OP-01.png')} 
+                      ? require('../../assets/Images/Packs/OP-02.png') 
+                      : require('../../assets/Images/Packs/OP-01.png')} 
                   />
                 </Pressable>
               </View>
